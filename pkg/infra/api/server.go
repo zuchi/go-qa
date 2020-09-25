@@ -59,10 +59,10 @@ func (s *Server) getQuestionService() question.ServicePort { // TODO Change it t
 	return question.NewService(repository)
 }
 
-func (s *Server) Initialize() {
+func (s *Server) Initialize(Addr string) {
 
 	s.srv = &http.Server{
-		Addr:    ":3000",
+		Addr:    Addr,
 		Handler: s.configHandlers(s.getQuestionService()),
 	}
 

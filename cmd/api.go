@@ -28,9 +28,9 @@ func main() {
 		logCtx.Panicf("cannot connect to mongodb: %v", err)
 	}
 
+	serverUrl := os.Getenv("SERVER_URL")
 	server := api.NewServer(ctx, client)
-
-	go server.Initialize()
+	go server.Initialize(serverUrl)
 
 	<-quit
 

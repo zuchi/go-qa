@@ -98,13 +98,53 @@ func TestService_SaveQuestion(t *testing.T) {
 }
 
 func TestService_UpdateQuestion(t *testing.T) {
-	tests := []struct {
-		name string
-	}{
-		// TODO: Add test cases.
+	dr := &DummyQuestionRepository{}
+	dre := &DummyQuestionRepositoryError{}
+
+	ans := "some answer here"
+	q := &domain.Question{
+		Question: "some questions",
+		User:     "someone",
+		Answer:   &ans,
 	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
+
+	tests := []struct {
+		name      string
+		id        string
+		q         *domain.Question
+		qr        Repository
+		wantError bool
+	}{
+		{
+			name:      "should update questions",
+			id:        "updateId",
+			q:         q,
+			qr:        dr,
+			wantError: false,
+		},
+		{
+			name:      "should not update questions",
+			q:         q,
+			qr:        dre,
+			wantError: true,
+		},
+		{
+			name:      "should not update questions because question is nil",
+			q:         nil,
+			qr:        dre,
+			wantError: true,
+		},
+	}
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			s := NewService(test.qr)
+			err := s.UpdateQuestion(test.id, test.q)
+
+			if test.wantError {
+				assert.NotNilf(t, err, "%s expected error not nil, but receipt nil", test.name)
+			} else {
+				assert.Nilf(t, err, "%s expected error nil, but receipt nil %v", test.name, err)
+			}
 		})
 	}
 }
