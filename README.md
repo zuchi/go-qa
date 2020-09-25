@@ -99,5 +99,6 @@ In the database collection I Have just one collection called question stored on 
 - In put endpoint I could make other struct to improve the attributes validation.
 - In mongodb repository I will need make some improvement in Unit test.
 - I'd like to execute some integration test also some end-to-end test
+- In the docker-compose file, I need to put healthcheck conditions to see if the container stay running
 - I can use an API-Key. However, just to demonstrate proposed, I thought that is not important in this moment.
 - Last but not least, I'd like to make a front end using VueJs in version 3.0
