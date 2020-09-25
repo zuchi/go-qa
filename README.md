@@ -81,7 +81,7 @@ The Status code that can be return here are: 201 (Created), 400 (BadRequest) or 
 
 
 ``PUT: <url>question/<id>``: In this Url we can perform some update operations. The Json that need to be sent is a single json object described bellow:
-```
+```json
 {
     "question": "The rust is a good language",
     "user": "Zuchi, Jederson",
