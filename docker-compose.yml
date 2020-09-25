@@ -1,0 +1,21 @@
+version: "3.6"
+services:
+  mongodb:
+    container_name: "mongodatabase"
+    image: 'mongo:4.4.1-bionic'
+    networks:
+      - qanetwork
+
+  qaapi:
+    build: .
+    ports:
+      - "3001:3001"
+    networks:
+      - qanetwork
+    environment:
+      - MONGO_URL=mongodb://mongodatabase:27017
+      - MONGO_COLLECTION=dbTestApi
+      - SERVER_URL=:3001
+networks:
+  qanetwork:
+    driver: bridge

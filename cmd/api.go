@@ -16,6 +16,8 @@ import (
 )
 
 func main() {
+
+	//TODO: Docker Compose and Configure Dockerfile
 	logCtx := log.WithFields(log.Fields{"component": "main"})
 	ctx := context.Background()
 

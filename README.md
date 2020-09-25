@@ -5,28 +5,31 @@ The idea of this api is receiving questions and answers from the users. However,
 just one response. If the user think that his answer is better than other they can substitute it.
 
 ### What Do I need to run?
- - You will need to have installed the MongoDB (I use Mongo Version 4.4) without a certificate configurated.
- - You will need to Golang Version 1.15 installed, with the GoPath configured in your environment
- - You need to *make* command installed to perform some CLI operations
- - If you wouldn't like to use make command to run the API, you must configure some environment variables that I will describe bellow: </br>
+ - You can choose two-way to run this API. If you are in Operation System that has *make* command just enter into API root directory and type **make compose**. 
+   This command is going to use a compose-file and will build and run the application with all dependences. In other hand, if you aren't in OS that has *make* command
+   you can run it using docker-compose file. To do it, enter in API Root directory and type: **docker-compose -f docker-compose.yml up**
+   
+   In the compose-file and make file there are some environment variables, I explain all of then bellow:
  ```
  - MONGO_URL: This Variable configure the URL to connect on MongoDB. You need to use something like it, for example: mongodb://localhost:27017
  - MONGO_COLLECTION: This Variable configure what is the name of collection that you'd like to put into mongodb. Example: BairesDev
  - SERVER_URL: This Variable configure what is the Address and port that the server are going to running. Example: localhost:3000 or :3000 </br> 
 ```
-- If you are in OS that have make cli, just edit the file, configure the environment variables there, save and in your prompt type make run after all services dependences are online.
+
 
 ### What I used of develop it:
-I used Golang version 1.15 with Go Modules enabled;
-I used MongoDB version 4.4 in a Docker container;
-I used MacOs Operation System (Catalina version);
-I used the Goland Jetbrains IDE;
-I used Postman to consume this API.
+- I used Golang version 1.15 with Go Modules enabled;
+- I used MongoDB version 4.4 in a Docker container;
+- I used MacOs Operation System (Catalina version);
+- I used the Goland Jetbrains IDE;
+- I used Postman to consume this API.
+- I used Docker (version 19.03.12) 
 
  
 ### What are command that have in Makefile
 Here I will describe some commands that you can run using Makefile interface
  ```
+make compose: this command will start all the application using docker-compose way
 make build: this command will compile golang project
 make run: this command will compile and run the project
 make test: to see unit test coverage
@@ -93,6 +96,6 @@ In the database collection I Have just one collection called question stored on 
 ##### Future works, If I will:
 - In put endpoint I could make other struct to improve the attributes validation.
 - In mongodb repository I will need make some improvement in Unit test.
-- I'd like to execute some integration test and also some end-to-end test
-- Also We can use an API-Key. However, just to demonstrate proposed, I thought that is not important in this moment.
+- I'd like to execute some integration test also some end-to-end test
+- I can use an API-Key. However, just to demonstrate proposed, I thought that is not important in this moment.
 - Last but not least, I'd like to make a front end using VueJs in version 3.0
