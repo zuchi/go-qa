@@ -1,5 +1,5 @@
 # Questions and Answers
-
+---
 ### Description
 The idea of this api is receiving questions and answers from the users. However, each question there will be 
 just one response. If the user think that his answer is better than other they can substitute it.
@@ -18,6 +18,8 @@ just one response. If the user think that his answer is better than other they c
  - SERVER_URL: This Variable configure what is the Address and port that the server are going to running. Example: localhost:3000 or :3000 </br> 
 ```
 
+---
+
 ### What I used of develop it:
 - I used Golang version 1.15 with Go Modules enabled;
 - I used MongoDB version 4.4 in a Docker container;
@@ -26,14 +28,15 @@ just one response. If the user think that his answer is better than other they c
 - I used Postman to consume this API.
 - I used Docker (version 19.03.12) 
 
- 
 ### What are command that have in Makefile
 Here I will describe some commands that you can run using Makefile interface
  ```
 make compose: this command will start all the application using docker-compose way
-make test: to see unit test coverage
+make compose-rebuild: this command always compile the image first and after that they are going to start the API
+make test: to see unit test coverage, **but you have to install go locally.**
 ```
 
+---
 
 #### Documentation
 Here, I will describe the some points that I consider important to share.
