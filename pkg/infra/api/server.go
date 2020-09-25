@@ -32,7 +32,7 @@ func NewServer(ctx context.Context, mongo *mongo.Client) *Server {
 	}
 }
 
-func (s *Server) configHandlers() *gin.Engine {
+func (s *Server) configHandlers(qs question.ServicePort) *gin.Engine {
 	s.logCtx.Infof("registering routes")
 	r := gin.New()
 
@@ -43,8 +43,6 @@ func (s *Server) configHandlers() *gin.Engine {
 		c.JSON(200, gin.H{"message": "Pong"})
 	})
 
-	qs := s.getQuestionService()
-
 	g := r.Group("/question/")
 	g.GET("", s.getListQuestion(qs))
 	g.POST("", s.postQuestion(qs))
@@ -53,7 +51,7 @@ func (s *Server) configHandlers() *gin.Engine {
 	return r
 }
 
-func (s *Server) getQuestionService() *question.Service { // TODO Change it to the interface for testable
+func (s *Server) getQuestionService() question.ServicePort { // TODO Change it to the interface for testable
 	db := os.Getenv("MONGO_COLLECTION")
 	questions := s.client.Database(db).Collection("questions")
 	repository := mongoRep.NewQuestionRepository(s.ctx, questions)
@@ -65,7 +63,7 @@ func (s *Server) Initialize() {
 
 	s.srv = &http.Server{
 		Addr:    ":3000",
-		Handler: s.configHandlers(),
+		Handler: s.configHandlers(s.getQuestionService()),
 	}
 
 	s.logCtx.Infof("starting server addr: %s", s.srv.Addr)

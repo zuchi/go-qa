@@ -1,7 +1,6 @@
 package api
 
 import (
-	"errors"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -10,7 +9,7 @@ import (
 	"github.com/zuchi/go-qa/pkg/domain/question"
 )
 
-func (s *Server) getListQuestion(qs *question.Service) gin.HandlerFunc {
+func (s *Server) getListQuestion(qs question.ServicePort) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		questions, err := qs.GetAllQuestion()
 		if err != nil {
@@ -24,7 +23,7 @@ func (s *Server) getListQuestion(qs *question.Service) gin.HandlerFunc {
 	}
 }
 
-func (s *Server) postQuestion(qs *question.Service) gin.HandlerFunc {
+func (s *Server) postQuestion(qs question.ServicePort) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var q domain.Question
 		if err := c.ShouldBind(&q); err != nil {
@@ -44,14 +43,9 @@ func (s *Server) postQuestion(qs *question.Service) gin.HandlerFunc {
 	}
 }
 
-func (s *Server) putQuestion(qs *question.Service) gin.HandlerFunc {
+func (s *Server) putQuestion(qs question.ServicePort) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		id := c.Params.ByName("id")
-		if len(id) == 0 {
-			s.logCtx.WithError(errors.New("id id not informed")).Error("something went wrong get id")
-			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": "invalid id parameter"})
-			return
-		}
 
 		var q domain.Question
 		if err := c.ShouldBind(&q); err != nil {
@@ -63,7 +57,7 @@ func (s *Server) putQuestion(qs *question.Service) gin.HandlerFunc {
 		err := qs.UpdateQuestion(id, &q)
 		if err != nil {
 			s.logCtx.WithError(err).Error("something went wrong to update question")
-			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"message": "question cannot be updated"})
+			c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"message": "question cannot be updated"})
 			return
 		}
 

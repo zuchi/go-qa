@@ -7,11 +7,17 @@ import (
 	"github.com/zuchi/go-qa/pkg/domain"
 )
 
+type ServicePort interface {
+	GetAllQuestion() ([]*domain.Question, error)
+	SaveQuestion(question *domain.Question) (id *string, err error)
+	UpdateQuestion(id string, question *domain.Question) error
+}
+
 type Service struct {
 	questionRepo Repository
 }
 
-func NewService(questionRepo Repository) *Service {
+func NewService(questionRepo Repository) ServicePort {
 	return &Service{
 		questionRepo: questionRepo,
 	}
