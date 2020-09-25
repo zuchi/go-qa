@@ -51,7 +51,7 @@ func (s *Server) configHandlers(qs question.ServicePort) *gin.Engine {
 	return r
 }
 
-func (s *Server) getQuestionService() question.ServicePort { // TODO Change it to the interface for testable
+func (s *Server) getQuestionService() question.ServicePort {
 	db := os.Getenv("MONGO_COLLECTION")
 	questions := s.client.Database(db).Collection("questions")
 	repository := mongoRep.NewQuestionRepository(s.ctx, questions)

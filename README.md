@@ -5,9 +5,11 @@ The idea of this api is receiving questions and answers from the users. However,
 just one response. If the user think that his answer is better than other they can substitute it.
 
 ### What Do I need to run?
- - You can choose two-way to run this API. If you are in Operation System that has *make* command just enter into API root directory and type **make compose**. 
+ - You can choose one of two-way to run this API. If you are in Operation System that has *make* command just enter into API root directory and type **make compose**. 
    This command is going to use a compose-file and will build and run the application with all dependences. In other hand, if you aren't in OS that has *make* command
-   you can run it using docker-compose file. To do it, enter in API Root directory and type: **docker-compose -f docker-compose.yml up**
+   you can run it using docker-compose file. To do it, enter in API Root directory and type: **docker-compose -f docker-compose.yml up** <br/>
+   
+ - Using this above commands the api will initialize in localhost:3001 by default, but you can change this behavior change docker-compose.yml environment variables.  
    
    In the compose-file and make file there are some environment variables, I explain all of then bellow:
  ```
@@ -15,7 +17,6 @@ just one response. If the user think that his answer is better than other they c
  - MONGO_COLLECTION: This Variable configure what is the name of collection that you'd like to put into mongodb. Example: BairesDev
  - SERVER_URL: This Variable configure what is the Address and port that the server are going to running. Example: localhost:3000 or :3000 </br> 
 ```
-
 
 ### What I used of develop it:
 - I used Golang version 1.15 with Go Modules enabled;
@@ -30,8 +31,6 @@ just one response. If the user think that his answer is better than other they c
 Here I will describe some commands that you can run using Makefile interface
  ```
 make compose: this command will start all the application using docker-compose way
-make build: this command will compile golang project
-make run: this command will compile and run the project
 make test: to see unit test coverage
 ```
 
